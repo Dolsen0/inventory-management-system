@@ -3,13 +3,12 @@ const app = express();
 const port = 3000;
 const { client } = require("./src/db");
 
-// Route handler to get a user by email
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Inventory Management API!");
 });
 
-app.get("/users/:email", async (req, res) => {
+app.get("/api/users/:email", async (req, res) => {
   const email = req.params.email;
 
   try {
@@ -28,7 +27,7 @@ app.get("/users/:email", async (req, res) => {
   }
 });
 
-app.get("/users/:email/inventory", async (req, res) => {
+app.get("/api/users/:email/inventory", async (req, res) => {
   const email = req.params.email;
 
   try {
@@ -73,9 +72,6 @@ app.get("/users/:email/inventory", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
-
-
 
 app.listen(port, () => {
   console.log(`Example app listening on http://localhost:${port}`);
