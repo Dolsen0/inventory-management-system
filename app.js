@@ -8,6 +8,20 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Inventory Management API!");
 });
 
+app.get("/admin/allusers", async (req, res) => {
+  try {
+    const db = client.db("inventory_management");
+    const usersCollection = db.collection("users");
+    const users = await usersCollection.find().toArray();
+
+    res.status(200).json(users);  // This sends the users array to the client.
+  } catch (err) {
+    console.error("Error retrieving users:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
 app.get("/api/users/:email", async (req, res) => {
   const email = req.params.email;
 
